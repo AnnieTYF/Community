@@ -44,7 +44,13 @@ public class HomeController {
                 Map<String,Object> map = new HashMap<>();
                 map.put("post",discussPost);
                 User user = userService.findUserById(discussPost.getUserId());
-                map.put("user",user);
+
+                if(user != null){
+                    map.put("user",user);
+                }else{
+                    //如果存在帖子但是没有相关用户就会报错
+                    System.out.println(discussPost.getUserId());
+                }
                 discussPosts.add(map);
             }
         }
