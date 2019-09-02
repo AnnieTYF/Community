@@ -25,6 +25,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release1" level="project" />
+    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-java8time:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf-testing:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-springsecurity4:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf-spring4:Release" level="project" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release2" level="project" />
+    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.1.7.RELEASE" level="project" />
@@ -98,14 +107,5 @@
     <orderEntry type="library" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:2.0.1" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release1" level="project" />
-    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-java8time:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf-testing:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf.extras:thymeleaf-extras-springsecurity4:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf-spring4:Release" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release2" level="project" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release3" level="project" />
   </component>
 </module>
