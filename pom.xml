@@ -82,9 +82,18 @@
             <version>2.3.2</version>
         </dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <!--用于处理JSON的 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.60</version>
+		</dependency>
 
 
-    </dependencies>
+
+
+	</dependencies>
 
 	<build>
 		<plugins>

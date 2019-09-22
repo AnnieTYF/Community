@@ -1,5 +1,6 @@
 package com.tyf.community.service;
 
+import com.google.code.kaptcha.Producer;
 import com.tyf.community.dao.LoginTicketMapper;
 import com.tyf.community.dao.UserMapper;
 import com.tyf.community.entity.LoginTicket;
@@ -38,6 +39,9 @@ public class UserService implements CommunityConstant {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private Producer kaptchaProducer;
 
     @Value("${community.path.domain}")
     private String domain;
@@ -188,5 +192,82 @@ public class UserService implements CommunityConstant {
     public LoginTicket findLoginTicket(String ticket){
         return loginTicketMapper.selectByTicket(ticket);
     }
+
+    //更新用户头像路径
+    public int updateHeader(int userId, String headerUrl){
+        return userMapper.updateHeader(userId,headerUrl);
+    }
+
+
+    /**
+     * 忘记密码后获取验证码验证
+     * @param email
+     * @return
+     */
+    public Map<String,Object> emailForgetPassword(String email){
+        Map<String,Object> map = new HashMap<>();
+        if(StringUtils.isBlank(email)){
+            map.put("emailMsg","邮箱为空");
+            return map;
+        }
+        //查询对应的用户
+        User user = userMapper.selectByEmail(email);
+        System.out.println(user);
+        if(user == null){
+            System.out.println("123");
+            map.put("emailMsg","该邮箱未被注册，请先注册账号");
+            return map;
+        }
+
+        //发送激活邮件
+        Context context = new Context();
+        context.setVariable("email",email);
+        /*
+         将用户的验证码发到用户邮箱
+         */
+        String text = user.getSalt();
+        context.setVariable("text",text);
+        String content = templateEngine.process("/mail/forget",context);
+        mailClient.sendMail(email, "激活账号", content);
+
+        return map;
+    }
+
+    /**
+     * 忘记密码
+     * @param email
+     * @param salt
+     * @param password
+     * @return
+     */
+    public Map<String,Object> forgetPassword(String email, String salt, String password){
+        Map<String,Object> map = new HashMap<>();
+        User user = userMapper.selectByEmail(email);
+        if(StringUtils.isBlank(email)){
+            map.put("emailMsg","邮箱不能为空");
+            return map;
+        }
+        if(user == null){
+            map.put("emailMsg","该邮箱未被注册，请先注册账号");
+            return map;
+        }
+        if(StringUtils.isBlank(salt)){
+            map.put("saltMsg","验证码不能为空");
+            return map;
+        }
+        if(!salt.equals(user.getSalt())){
+            map.put("saltMsg","验证码不正确");
+            return map;
+        }
+        if(StringUtils.isBlank(password)){
+            map.put("passwordMsg","密码不能为空");
+            return map;
+        }
+        userMapper.updatePassword(user.getId(),CommunityUtil.md5(password + user.getSalt()));
+
+        return map;
+    }
+
+
 
 }

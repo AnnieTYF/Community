@@ -4,6 +4,7 @@ import com.google.code.kaptcha.Producer;
 import com.tyf.community.entity.User;
 import com.tyf.community.service.UserService;
 import com.tyf.community.util.CommunityConstant;
+import com.tyf.community.util.CommunityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
@@ -53,6 +51,15 @@ public class LoginController implements CommunityConstant {
         return "/site/login";
     }
 
+    /**
+     * 获取忘记密码页面
+     * @return
+     */
+    @RequestMapping(path = "/forget",method = RequestMethod.GET)
+    public String getForgetPage(){
+        return "/site/forget";
+    }
+
     @RequestMapping(path = "register", method = RequestMethod.POST)
     public String register(Model model, User user){
         Map<String,Object> map = userService.register(user);
@@ -66,6 +73,44 @@ public class LoginController implements CommunityConstant {
             model.addAttribute("emailMsg",map.get("emailMsg"));
             return "/site/register";
         }
+    }
+
+    /**
+     * 忘记密码功能
+     * 这几个参数都是我瞎写的，因为我不知道前端该怎么传进来
+     * @param model
+     * @param email
+     * @param code
+     * @param password
+     * @return
+     */
+    @RequestMapping(path = "forgetPassword", method = RequestMethod.POST)
+    public String forgetPassword(Model model, String email, String code, String password){
+         Map<String,Object> map = userService.forgetPassword(email,code,password);
+         if(map == null || map.isEmpty()){
+             model.addAttribute("msg","密码修改成功。请重新登录");
+             model.addAttribute("target","/index");
+             return "/site/operate-result";
+         }else{
+             model.addAttribute("saltMsg",map.get("saltMsg"));
+             model.addAttribute("passwordMsg",map.get("passwordMsg"));
+             model.addAttribute("emailMsg",map.get("emailMsg"));
+             return "/site/forget";
+         }
+    }
+
+    /**
+     * 忘记密码后获取验证码验证
+     * 我还是不会用前端的ajax传数据
+     * @param email
+     * @return
+     */
+    @RequestMapping(path = "/emailForgetPassword",method = RequestMethod.POST)
+    @ResponseBody
+    public String emailForgetPassword(String email){
+        System.out.println(email);
+        Map<String,Object> map = userService.emailForgetPassword(email);
+        return CommunityUtil.getJSONString(0,"发布成功",map);
     }
 
     /**
@@ -161,6 +206,8 @@ public class LoginController implements CommunityConstant {
          userService.logout(ticket);
          return "redirect:/login";
     }
+
+
 
 
 

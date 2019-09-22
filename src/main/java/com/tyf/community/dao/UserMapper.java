@@ -20,7 +20,7 @@ public interface UserMapper {
 
     int updateStatus(@Param("id")int id, @Param("status") int status);
 
-    int updateHeader(@Param("id")int id, @Param("headUrl")String headUrl);
+    int updateHeader(@Param("id")int id, @Param("headerUrl")String headerUrl);
 
     int updatePassword(@Param("id")int id, @Param("password")String password);
 }
