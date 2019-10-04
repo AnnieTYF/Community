@@ -34,6 +34,7 @@ public class AlphaService {
     public void AlphaService(){
         System.out.println("ConstructAlphaService");
     }
+/*
     //表明初始化方法在构造器后执行，管理初始化方法
     @PostConstruct
     public void init(){
@@ -44,6 +45,7 @@ public class AlphaService {
     public void destroy(){
         System.out.println("destroyAlphaService");
     }
+*/
 
     public String find(){
        return alphaDao.select();

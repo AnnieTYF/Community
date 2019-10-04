@@ -90,6 +90,15 @@
 			<version>1.2.60</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+        <!-- 可以不写版本号，因为pom.xml的父包中有包含这个spring版本以下一个系列产品的兼容版本
+        ctrl + v 查看父类-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+
 
 
 
